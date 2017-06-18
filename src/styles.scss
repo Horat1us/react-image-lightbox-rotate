@@ -1,0 +1,41 @@
+.rotateLeftButton,
+.rotateRightButton {
+  position: relative;
+
+  background: transparent;
+
+  > svg {
+    width: 18px;
+    height: 18px;
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    margin: auto;
+  }
+
+}
+
+.rotateLeftButton {
+  transform: scaleX(-1);
+}
+
+.rotate90 {
+  .ril-image-current {
+    transform: rotate(90deg);
+  }
+}
+.rotate180 {
+  .ril-image-current {
+    transform: rotate(90deg);
+  }
+}
+.rotate270 {
+  .ril-image-current {
+    transform: rotate(90deg);
+  }
+}
