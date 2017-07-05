@@ -2,7 +2,10 @@
   "name": "react-image-lightbox-rotate",
   "version": "1.0.0",
   "description": "Rotate wrapper for react-image-lightbox",
-  "main": "index.js",
+  "main": "dist/umd/react-image-lightbox.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
