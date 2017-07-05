@@ -2,7 +2,7 @@
  * Created by horat1us on 6/17/17.
  */
 import React, {Component} from 'react';
-import ReactImageLightbox from 'react-image-lightbox';
+import ReactImageLightbox, {changeAngle} from './override';
 import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
@@ -19,27 +19,19 @@ class ReactImageLightboxRotate extends Component {
         };
     }
 
+    componentDidMount() {
+        styles._insertCss();
+    }
+
 
     changeRotation(angle) {
         let nextAngle = this.state.rotate + angle;
         if (nextAngle < 0) {
             nextAngle = 270;
         }
+        console.log(`Next angle ${nextAngle}`);
         this.setState({rotate: nextAngle});
         this.props.onImageRotate(nextAngle);
-    }
-
-    get rotateClassName() {
-        switch (this.state.rotate) {
-            case 270:
-                return styles.rotate270;
-            case 180:
-                return styles.rotate180;
-            case 90:
-                return styles.rotate90;
-            default:
-                return '';
-        }
     }
 
     get svg() {
@@ -74,6 +66,7 @@ class ReactImageLightboxRotate extends Component {
             rotateRightButtonHandler = noop;
         }
 
+        changeAngle(this.state.rotate);
         const props = Object.assign({}, this.props, {
             toolbarButtons: [
                 <button

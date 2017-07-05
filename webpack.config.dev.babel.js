@@ -60,6 +60,15 @@ module.exports = {
                 ],
             },
             {
+                test: /\.css$/,
+                use: [
+                    'css-loader',
+                ],
+                include: [
+                    path.join(__dirname, 'src'),
+                ]
+            },
+            {
                 test: /\.(jpe?g|png|gif)$/,
                 loaders: [
                     'file-loader?name=static/[name]-[hash:6].[ext]',

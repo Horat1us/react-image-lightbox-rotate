@@ -4,7 +4,7 @@
 
   background: transparent;
 
-  > svg {
+  svg {
     width: 18px;
     height: 18px;
 
@@ -18,24 +18,25 @@
     margin: auto;
   }
 
+  border: none;
+  outline: none;
+
+  width: 40px;
+  height: 35px;
+
+  vertical-align: middle;
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .rotateLeftButton {
   transform: scaleX(-1);
 }
 
-.rotate90 {
-  .ril-image-current {
-    transform: rotate(90deg);
-  }
-}
-.rotate180 {
-  .ril-image-current {
-    transform: rotate(90deg);
-  }
-}
-.rotate270 {
-  .ril-image-current {
-    transform: rotate(90deg);
-  }
+.ril-image-next {
+  display: none;
 }
