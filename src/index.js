@@ -67,25 +67,30 @@ class ReactImageLightboxRotate extends Component {
         }
 
         changeAngle(this.state.rotate);
+
+        let toolbarButtons = this.props.toolbarButtons ? this.props.toolbarButtons : []
+        toolbarButtons = toolbarButtons.concat(
+          [
+              <button
+                  type="button"
+                  key="rotate-left"
+                  className={`ril-rotate-left ${rotateLeftButtonClasses.join(' ')}`}
+                  onClick={rotateLeftButtonHandler}
+              >
+                  {this.svg}
+              </button>,
+              <button
+                  type="button"
+                  key="rotate-right"
+                  className={`ril-rotate-right ${rotateRightButtonClasses.join(' ')}`}
+                  onClick={rotateRightButtonHandler}
+              >
+                  {this.svg}
+              </button>
+          ]
+        )
         const props = Object.assign({}, this.props, {
-            toolbarButtons: [
-                <button
-                    type="button"
-                    key="rotate-left"
-                    className={`ril-rotate-left ${rotateLeftButtonClasses.join(' ')}`}
-                    onClick={rotateLeftButtonHandler}
-                >
-                    {this.svg}
-                </button>,
-                <button
-                    type="button"
-                    key="rotate-right"
-                    className={`ril-rotate-right ${rotateRightButtonClasses.join(' ')}`}
-                    onClick={rotateRightButtonHandler}
-                >
-                    {this.svg}
-                </button>,
-            ],
+            toolbarButtons,
             ref: (lightBox) => this.lightBox = lightBox,
             wrapperClassName: this.rotateClassName,
         });
