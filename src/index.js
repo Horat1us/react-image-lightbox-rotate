@@ -29,9 +29,12 @@ class ReactImageLightboxRotate extends Component {
         if (nextAngle < 0) {
             nextAngle = 270;
         }
-        console.log(`Next angle ${nextAngle}`);
         this.setState({rotate: nextAngle});
         this.props.onImageRotate(nextAngle);
+    }
+
+    resetRotation() {
+        this.setState({rotate: 0});
     }
 
     get svg() {
@@ -41,6 +44,28 @@ class ReactImageLightboxRotate extends Component {
             <path fill="#ddd"
                   d="M16 7V3l-1.1 1.1C13.6 1.6 11 0 8 0 3.6 0 0 3.6 0 8s3.6 8 8 8c2.4 0 4.6-1.1 6-2.8l-1.5-1.3C11.4 13.2 9.8 14 8 14c-3.3 0-6-2.7-6-6s2.7-6 6-6c2.4 0 4.5 1.5 5.5 3.5L12 7h4z"/>
         </svg>;
+    }
+
+    handleMovePrev() {
+        if(this.props.onPreMovePrevRequest && this.state.rotate >0 ){
+            return () => {
+                this.resetRotation(0)
+                changeAngle(0);
+                this.props.onPreMovePrevRequest();
+            };
+        }
+        return this.props.onPreMovePrevRequest
+    }
+
+    handleMoveNext() {
+        if(this.props.onPreMoveNextRequest && this.state.rotate >0 ){
+            return () => {
+                this.resetRotation(0)
+                changeAngle(0);
+                this.props.onPreMoveNextRequest();
+            };
+        }
+        return this.props.onPreMoveNextRequest
     }
 
     render() {
@@ -90,6 +115,8 @@ class ReactImageLightboxRotate extends Component {
           ]
         )
         const props = Object.assign({}, this.props, {
+            onMovePrevRequest: this.handleMovePrev(),
+            onMoveNextRequest: this.handleMoveNext(),
             toolbarButtons,
             ref: (lightBox) => this.lightBox = lightBox,
             wrapperClassName: this.rotateClassName,

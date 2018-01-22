@@ -136,8 +136,8 @@ class App extends Component {
                     prevSrcThumbnail={thumbs[(this.state.index + images.length - 1) % images.length]}
 
                     onCloseRequest={this.closeLightbox}
-                    onMovePrevRequest={this.movePrev}
-                    onMoveNextRequest={this.moveNext}
+                    onPreMovePrevRequest={this.movePrev}
+                    onPreMoveNextRequest={this.moveNext}
                     onImageLoadError={App.onImageLoadError}
 
                     imageTitle={titles[this.state.index]}
