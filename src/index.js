@@ -16,6 +16,8 @@ class ReactImageLightboxRotate extends Component {
 
         this.state = {
             rotate: 0,
+            prevRotate: 0,
+            nextRotate: 0,
         };
     }
 
@@ -37,6 +39,26 @@ class ReactImageLightboxRotate extends Component {
         this.setState({rotate: 0});
     }
 
+    preservationRotation(angle) {
+        this.setState({rotate: angle});
+    }
+
+    resetPrevRotation() {
+        this.setState({prevRotate: 0});
+    }
+
+    preservationPrevRotation(angle) {
+        this.setState({prevRotate: angle});
+    }
+
+    resetNextRotation() {
+        this.setState({nextRotate: 0});
+    }
+
+    preservationNextRotation(angle) {
+        this.setState({nextRotate: angle});
+    }
+
     get svg() {
         return <svg className="icon icon-rotate" xmlns="http://www.w3.org/2000/svg" width="512"
                     height="512"
@@ -47,10 +69,18 @@ class ReactImageLightboxRotate extends Component {
     }
 
     handleMovePrev() {
-        if(this.props.onPreMovePrevRequest && this.state.rotate >0 ){
+        if(this.props.onPreMovePrevRequest && (this.state.rotate >0 || this.state.prevRotate > 0)){
             return () => {
-                this.resetRotation(0)
-                changeAngle(0);
+                if (this.state.prevRotate > 0) {
+                    this.preservationRotation(this.state.prevRotate);
+                    this.resetPrevRotation();
+                }else {
+                    if(this.props.saveBeforeAfterState){
+                        this.preservationNextRotation(this.state.rotate);
+                    }
+                    this.resetRotation(0);
+                    changeAngle(0);
+                }
                 this.props.onPreMovePrevRequest();
             };
         }
@@ -58,14 +88,26 @@ class ReactImageLightboxRotate extends Component {
     }
 
     handleMoveNext() {
-        if(this.props.onPreMoveNextRequest && this.state.rotate >0 ){
+        if(this.props.onPreMoveNextRequest && this.state.rotate >0 ||  this.state.nextRotate > 0){
             return () => {
-                this.resetRotation(0)
-                changeAngle(0);
+                if(this.state.nextRotate > 0) {
+                    this.preservationRotation(this.state.nextRotate);
+                    this.resetNextRotation(0);
+                } else {
+                    if(this.props.saveBeforeAfterState){
+                        this.preservationPrevRotation(this.state.rotate);
+                    }
+                    this.resetRotation(0);
+                    changeAngle(0);
+                }
                 this.props.onPreMoveNextRequest();
             };
+        }else{
+            return () => {
+                this.resetPrevRotation();
+                this.props.onPreMoveNextRequest();
+            }
         }
-        return this.props.onPreMoveNextRequest
     }
 
     render() {
