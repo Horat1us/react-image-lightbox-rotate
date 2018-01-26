@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/Horat1us/react-image-lightbox-rotate#readme",
   "dependencies": {
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.6.0",
     "react-image-lightbox": "^4.3.0"
   },
   "devDependencies": {
